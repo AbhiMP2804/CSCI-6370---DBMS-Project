@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+                        /* Set the background image and adjust opacity */
+            background: url("{% static 'LibManagementApp/libImage.jpg' %}") center/cover fixed;
+            opacity: 1; /* Adjust opacity as needed */
+            color: #100c08; /* Set text color on top of the image */
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #555;
+            padding: 1em;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 1em;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.7em;
+            cursor: pointer;
+        }
+        span {
+            color: orange;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Librarian Dashboard</h1>
+    </header>
+    <nav>
+        <aside>
+            <span>Welcome, {{ request.user.username }}!</span>
+            <a href="{% url 'add_new_book' %}">Add New Book</a>
+            <a href="{% url 'add_new_member' %}">Add New Member</a>
+            <a href="{% url 'check_book_list' %}">Check Book List</a>
+            <a href="{% url 'issue_book' %}">Issue Book</a>
+            <a href="{% url 'return_book' %}">Return Book</a>
+            <a href="{% url 'view_transactions_bills' %}">Member History</a>
+            <a href="{% url 'librarian_logout' %}">Logout</a>
+    </aside>
+    </nav>
+    <main>
+        <h1 Hi Sir, How are you doing today?></h1>
+    </main>
+</body>
+</html>

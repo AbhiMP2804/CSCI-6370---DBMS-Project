@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Librarian Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            /* Set the background image and adjust opacity */
+            background: url("{% static 'LibManagementApp/libImage.jpg' %}") center/cover fixed;
+            opacity: 1; /* Adjust opacity as needed */
+            color: #100c08; /* Set text color on top of the image */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            padding: 20px;
+            margin: 50px auto;
+            width: 80%;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #password-checklist {
+    display: none;
+    margin-top: 5px;
+}
+
+#password-checklist li {
+    color: #333;
+    margin-bottom: 5px;
+    list-style-type: none;
+}
+
+#password-checklist li.valid {
+    color: #4CAF50; /* Green color for valid criteria */
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Librarian Sign Up for the Library Management System</h1>
+    </header>
+
+    <form action="{% url 'librarian_signup' %}" method="post">
+        {% csrf_token %}
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="password1">Confirm Password:</label>
+        <input type="password" id="password1" name="password1" required>
+        <ul id="password-checklist"></ul>
+
+        <button type="submit" value="Submit">Sign Up</button>
+    </form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the password input and checklist elements
+        var passwordInput = document.getElementById('password');
+        var checklist = document.getElementById('password-checklist');
+
+        // Attach focus and blur event listeners to the password input
+        passwordInput.addEventListener('focus', showChecklist);
+        passwordInput.addEventListener('blur', hideChecklist);
+
+        // Attach an input event listener to the password input
+        passwordInput.addEventListener('input', function () {
+            // Get the entered password
+            var password = passwordInput.value;
+
+            // Define the password criteria
+            var criteria = {
+                length: password.length >= 8,
+                digit: /\d/.test(password),
+                specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+                capitalLetter: /[A-Z]/.test(password)
+            };
+
+            // Update the checklist based on the criteria
+            updateChecklist(criteria);
+        });
+
+        // Function to show the checklist
+        function showChecklist() {
+            checklist.style.display = 'block';
+        }
+
+        // Function to hide the checklist
+        function hideChecklist() {
+            checklist.style.display = 'none';
+        }
+
+        // Function to update the checklist based on the criteria
+        function updateChecklist(criteria) {
+            // Clear previous checklist items
+            checklist.innerHTML = '';
+
+            // Define checklist items
+            var checklistItems = {
+                length: 'At least 8 characters',
+                digit: 'At least 1 digit',
+                specialChar: 'At least 1 special character',
+                capitalLetter: 'At least 1 capital letter'
+            };
+
+            // Add checklist items to the list
+            for (var key in criteria) {
+                var listItem = document.createElement('li');
+                listItem.textContent = checklistItems[key];
+
+                // Check if the criteria is met
+                if (criteria[key]) {
+                    listItem.classList.add('valid');
+                } else {
+                    listItem.classList.remove('valid');
+                }
+
+                checklist.appendChild(listItem);
+            }
+        }
+    });
+</script>
+</body>
+</html>

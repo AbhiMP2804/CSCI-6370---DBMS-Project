@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book</title>
+    <!-- Add your CSS styling for the library theme -->
+    <link rel="stylesheet" href="{% static 'css/library.css' %}">
+
+    <style>
+            nav {
+    background-color: #333; /* Green background color */
+    padding: 15px; /* Add some padding */
+    text-align: center; /* Center-align text */
+    position: fixed; /* Fixed position at the top of the page */
+    width: 100%; /* Full width */
+    top: 0; /* Top of the page */
+}
+
+nav a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make each link a block-level element */
+    padding: 14px 16px; /* Add some padding */
+    margin-right: 10px; /* Add some right margin between links */
+}
+
+nav a:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+span {
+            color: orange;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <aside>
+            <span>Welcome, {{ request.user.username }}!</span>
+            <a href="{% url 'add_new_book' %}">Add New Book</a>
+            <a href="{% url 'add_new_member' %}">Add New Member</a>
+            <a href="{% url 'check_book_list' %}">Check Book List</a>
+            <a href="{% url 'issue_book' %}">Issue Book</a>
+            <a href="{% url 'return_book' %}">Return Book</a>
+            <a href="{% url 'view_transactions_bills' %}">Member History</a>
+            <a href="{% url 'librarian_logout' %}">Logout</a>
+    </aside>
+    </nav>
+
+    <div class="container">
+        <h2>Add New Book</h2>
+        <form method="post" action="{% url 'add_new_book' %}">
+            {% csrf_token %}
+            <!-- Add your form fields for new book details -->
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <br>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+            <br>
+            <label for="edition">Edition:</label>
+            <input type="text" id="edition" name="edition" required>
+            <br>
+            <label for="copies">Number of Copies:</label>
+            <input type="number" id="copies" name="number_of_copies" required>
+            <br>
+            <label for="type">Book Type:</label>
+            <select id="type" name="book_type" required>
+                <option value="study">Study</option>
+                <option value="journal">Journal</option>
+                <option value="magazine">Magazine</option>
+            </select>
+            <br>
+            <input type="submit" value="Add Book">
+        </form>
+<!--        <a href="{% url 'check_book_list' %}">Check Book List</a>-->
+    </div>
+</body>
+
+</html>

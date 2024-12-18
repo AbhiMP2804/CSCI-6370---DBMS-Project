@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Book</title>
+    <!-- Add your CSS styling for the library theme -->
+    <link rel="stylesheet" href="{% static 'css/library.css' %}">
+
+    <style>
+            nav {
+    background-color: #333; /* Green background color */
+    padding: 15px; /* Add some padding */
+    text-align: center; /* Center-align text */
+    position: fixed; /* Fixed position at the top of the page */
+    width: 100%; /* Full width */
+    top: 0; /* Top of the page */
+}
+
+nav a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make each link a block-level element */
+    padding: 14px 16px; /* Add some padding */
+    margin-right: 10px; /* Add some right margin between links */
+}
+
+nav a:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+span {
+            color: orange;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+<nav>
+        <aside>
+            <span>Welcome, {{ request.user.username }}!</span>
+            <a href="{% url 'add_new_book' %}">Add New Book</a>
+            <a href="{% url 'add_new_member' %}">Add New Member</a>
+            <a href="{% url 'check_book_list' %}">Check Book List</a>
+            <a href="{% url 'issue_book' %}">Issue Book</a>
+            <a href="{% url 'return_book' %}">Return Book</a>
+            <a href="{% url 'view_transactions_bills' %}">Member History</a>
+            <a href="{% url 'librarian_logout' %}">Logout</a>
+    </aside>
+    </nav>
+    <div class="container">
+        <h2>Return Book</h2>
+        <form method="post" action="{% url 'return_book' %}">
+            {% csrf_token %}
+            <!-- Add your form fields for returning a book -->
+            <label for="transaction_id">Transaction ID:</label>
+            <input type="text" id="transaction_id" name="transaction_id" required>
+            <br>
+            <label for="return_date">Return Date:</label>
+            <input type="date" id="return_date" name="return_date" required>
+            <br>
+            <input type="submit" value="Return Book">
+        </form>
+<!--        <a href="{% url 'check_book_list' %}">Check Book List</a>-->
+    </div>
+</body>
+
+</html>

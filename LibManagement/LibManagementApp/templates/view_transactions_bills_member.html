@@ -1,0 +1,152 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* library_styles.css */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 200px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .transaction-list li,
+        .bill-list li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-list h3,
+        .bill-list h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        nav {
+    background-color: #4CAF50; /* Green background color */
+    padding: 15px; /* Add some padding */
+    text-align: center; /* Center-align text */
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-around; /* Space out items evenly */
+    position: fixed; /* Fixed position at the top of the page */
+    width: 100%; /* Full width */
+    top: 0; /* Top of the page */
+}
+
+nav a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    margin-right: 20px;
+}
+
+nav a:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+span {
+            color: black;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <aside>
+            <span>Welcome, {{ request.user.username }}!</span>
+            <a href="{% url 'librarian_logout' %}">Logout</a>
+    </aside>
+    </nav>
+    <br>
+    <br>
+<div class="container">
+<h3>Your Transactions:</h3>
+    <ul class="transaction-list">
+
+
+        {% for transaction in transactions %}
+            <li>
+                Transaction ID: {{ transaction.transactionId }}
+                <br>
+                Book ID: {{ transaction.bookId }}
+                <br>
+                Issue Date: {{ transaction.issue_date }}
+                <br>
+                Return Date: {{ transaction.return_date }}
+                <!-- Add other fields as needed -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Your Bills:</h3>
+    <ul class="bill-list">
+    {% for bill in bills %}
+        <li>
+            Bill ID: {{ bill.billId }}
+            <br>
+            Amount: {{ bill.amount }}
+            <br>
+            Bill Date: {{ bill.billDate|date:"F j, Y" }}
+            <br>
+            Due Date: {{ bill.billDate|add_days:7|date:"F j, Y" }}
+            <!-- Add other fields as needed -->
+        </li>
+    {% endfor %}
+</ul>
+</div>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
